@@ -141,7 +141,7 @@ GitHub pages meets all the requirements, and I haven't had any issues using it i
 
 ## Checks
 
-I added a few checks in my nix flake for spelling and formatting:
+I added a few checks in my nix flake[^1] for spelling and formatting:
 
 - [Hunspell](https://hunspell.github.io) for spellcheck
 - [nixfmt](https://github.com/NixOS/nixfmt) for nix formatting
@@ -149,7 +149,7 @@ I added a few checks in my nix flake for spelling and formatting:
 - [taplo](https://github.com/tamasfe/taplo) for TOML formatting
 - [vale](https://vale.sh) for style
 
-Then it's a simple matter of adding the nix flake checks into GitHub actions to build and deploy the blog.
+Then I added the nix flake checks into GitHub actions[^2] to build and deploy my blog.
 
 ## Source
 
@@ -159,3 +159,7 @@ All the source for this blog is on GitHub at <https://github.com/newAM/blog>
 [jamstack]: https://jamstack.org/generators
 [Zola]: https://www.getzola.org
 [abridge theme]: https://abridge.pages.dev
+
+[^1]: Reference [flake.nix](https://github.com/newAM/blog/blob/93100abad5af746969105dd4c62c55514787b9d0/flake.nix#L53-L160)
+
+[^2]: Reference [.github/workflows/ci.yml](https://github.com/newAM/blog/blob/93100abad5af746969105dd4c62c55514787b9d0/.github/workflows/ci.yml)

@@ -1,7 +1,9 @@
 Buildable
+ci
 Cloudflare
 DIY
 Docusaurus
+github
 GitLab
 HSTS
 HTTPS
@@ -19,3 +21,4 @@ TOML
 TypeScript
 uptime
 VPN
+yml

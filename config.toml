@@ -10,7 +10,7 @@ author = "Alex Martens"
 
 default_language = "en"
 compile_sass = true
-minify_html = true
+minify_html = false
 build_search_index = true
 generate_feeds = true
 generate_sitemap = true

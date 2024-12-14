@@ -132,6 +132,9 @@
                     # This is my blog, I get to use the first person
                     "Google.FirstPerson" = "NO";
                     "Microsoft.FirstPerson" = "NO";
+                    # TLAs are everywhere, using my best judgement
+                    "Google.Acronyms" = "NO";
+                    "Microsoft.Acronyms" = "NO";
                     # Lower the level of these
                     "Readability.LIX" = "suggestion";
                     "Readability.FleschReadingEase" = "suggestion";

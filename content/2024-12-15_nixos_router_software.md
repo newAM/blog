@@ -37,7 +37,11 @@ The BPi-R4 has several ports:
 
 The goal is to setup `networkd` to make each of these ports work for their intended purpose.
 
-### WAN Ports
+<!-- vale off -->
+
+### WAN ports
+
+<!-- vale on -->
 
 There are two WAN ports, one GbE, and one SFP+.
 
@@ -50,7 +54,7 @@ The numerical prefix "30-" is for ordering, `networkd` executes lower numbers fi
 
 ```nix
 {
-  systemd.network.netdevs."30-bond-wan" = {
+  systemd.network.netdevs."10-bond-wan" = {
     netdevConfig = {
       Kind = "bond";
       Name = "bond-wan";
@@ -71,14 +75,14 @@ Next, I connected the physical interfaces to the bond, with the SFP+ port set as
 ```nix
 {
   systemd.network.networks = {
-    "10-wan1" = {
+    "30-wan1" = {
       matchConfig.Name = "wan"; # GbE WAN
       networkConfig = {
         Bond = "bond-wan";
         ConfigureWithoutCarrier = true;
       };
     };
-    "10-wan2" = {
+    "30-wan2" = {
       matchConfig.Name = "eth2"; # SFP+ WAN
       networkConfig = {
         Bond = "bond-wan";
@@ -90,7 +94,7 @@ Next, I connected the physical interfaces to the bond, with the SFP+ port set as
 }
 ```
 
-Finally
+Finally, I created for the `bond-wan` device with a DHCP client to request an IPv4 from my ISP.
 
 ```nix
 {
@@ -109,29 +113,94 @@ Finally
     };
     # make routing on this interface a dependency for network-online.target
     linkConfig.RequiredForOnline = "routable";
-};
+  };
 }
 ```
 
-### LAN Ports
+When both the GbE WAN and SFP+ connections are established, `bond-wan` switches from the GbE port to the SFP+ port.
 
-The LAN ports TODO.
+```text
+[  815.507035] mtk_soc_eth 15100000.ethernet eth2: switched to inband/10gbase-r link mode
+[  838.441419] mtk_soc_eth 15100000.ethernet eth2: Link is Up - 10Gbps/Full - flow control off
+[  841.446113] bond-wan: (slave eth2): link status definitely up, 10000 Mbps full duplex
+[  841.453965] bond-wan: (slave eth2): making interface the new active one
+```
+
+And when the SFP+ connection is removed `bond-wan` falls back to the GbE port.
+
+```text
+[  962.893593] sfp sfp1: module removed
+[  962.897333] mtk_soc_eth 15100000.ethernet eth2: Link is Down
+[  967.445442] bond-wan: (slave eth2): link status definitely down, disabling slave
+[  967.452862] bond-wan: (slave wan): making interface the new active one
+```
+
+<!-- vale off -->
+
+### LAN ports
+
+<!-- vale on -->
+
+The LAN ports are similar to the WAN, but instead of grouping the ports into a bond I used a bridge to act as a switch between the LAN ports.
+
+Similar to the WAN I created the bridge netdev, `br-lan`, the networks for each physical port connecting them to the bridge, then the LAN bridge itself.
 
 ```nix
-# TODO
+{
+  systemd.network = {
+    # create a bridge netdev
+    netdevs."20-br-lan".netdevConfig = {
+      Kind = "bridge";
+      Name = "br-lan";
+    };
+
+    networks = let
+      # the LAN ports are all configured the same with different names
+      mkLan = Name: {
+        matchConfig = {inherit Name;};
+        networkConfig = {
+          Bridge = "br-lan";
+          ConfigureWithoutCarrier = true;
+        };
+        linkConfig.RequiredForOnline = "enslaved";
+      };
+    in {
+      # connect LAN ports to LAN bridge
+      "30-lan1" = mkLan "lan1";
+      "30-lan2" = mkLan "lan2";
+      "30-lan3" = mkLan "lan3";
+      "30-lan4" = mkLan "eth1"; # SFP+
+      # configure LAN bridge
+      "10-br-lan" = {
+        matchConfig.Name = "br-lan";
+        bridgeConfig = {};
+        address = [
+          # Router private IPv4 in CIDR notation
+          "10.0.0.1/24"
+        ];
+        networkConfig.ConfigureWithoutCarrier = true;
+        linkConfig.RequiredForOnline = "no";
+      };
+    };
+  };
+}
 ```
 
 ## Routing
 
-At the core of most Linux routers is the Linux kernel packet classification framework, `nftables`.
+At the core of most Linux routers is the Linux kernel packet classification framework, `iptables`, or the newer `nftables`.
 
-`nftables` is responsible for implementing... TODO a lot, find the words
+I have experience with the older `iptables`, but `nftables` is recommend for all new uses, offering improved syntax, performance, and flexibility compared to `iptables`.
 
-- Firewall
-- Filtering
+`nftables` is responsible for most of the heavy lifting, including:
+
 - Routing
+- Firewall
 - Port forwarding
-- NAT
+- Network address translation
+
+I explored using a NixOS DSL for nftables, [notnft], but I decided not to use it right now because it's a complex layer of abstraction that makes it difficult to compare my configuration to examples.
+Instead I simply wrote nftables rules normally using the NixOS module.
 
 ## NAT
 
@@ -141,18 +210,6 @@ IPv4 addresses are 32-bit, which gives a total of 2^32=4,294,967,296 addresses [
 Typically residential internet service providers allocate a single IPv4 per household.
 A home router takes the public IPv4, and distributes local IPv4 addresses to its clients.
 Using network address translation the router translates between its public IPv4 and the private IPv4s given to clients.
-
-### NAT implementation
-
-I had two choices for NAT, and general network related tasks in Linux.
-
-1. iptables
-2. [nftables]
-
-I was already familiar with iptables, but I chose nftables because it's the newer option, offering improved syntax, performance, and features as compared to iptables.
-
-I explored using a NixOS DSL for nftables, [notnft], but I decided not to use it right now because it's a complex layer of abstraction that makes it difficult to compare my configuration to examples.
-Instead I simply wrote nftables rules normally using the NixOS module.
 
 ## DHCP
 
@@ -182,6 +239,23 @@ Domain name system (DNS) resolve a domain name to an IP address.
 
 - TODO: grafana
 - TODO: prometheus
+
+## Security
+
+I am not a security expert, or a router expert.
+I only learned about martian packets after starting this project.
+There may be other security items I have completely missed.
+
+TODO: martian packet configuration
+
+## Future work
+
+- Metrics / grafana enhancements
+  - Per-client network utilization
+  - DHCP lease table
+  - Public IP
+- Testing
+- IPv6
 
 [^1]: Ignoring [reserved IP addresses](https://en.wikipedia.org/wiki/Reserved_IP_addresses)
 

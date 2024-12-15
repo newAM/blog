@@ -1,6 +1,6 @@
 +++
-title = "NixOS Router"
-description = "Using NixOS for the router on my home network."
+title = "NixOS Router Hardware"
+description = "Selecting hardware for a router and booting into NixOS."
 date = 2024-12-14
 draft = false
 

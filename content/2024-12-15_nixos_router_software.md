@@ -202,15 +202,6 @@ I have experience with the older `iptables`, but `nftables` is recommend for all
 I explored using a NixOS DSL for nftables, [notnft], but I decided not to use it right now because it's a complex layer of abstraction that makes it difficult to compare my configuration to examples.
 Instead I simply wrote nftables rules normally using the NixOS module.
 
-## NAT
-
-Network address translation is a workaround for the problem of IPv4 address exhaustion.
-IPv4 addresses are 32-bit, which gives a total of 2^32=4,294,967,296 addresses [^1], too few for each internet connected device to have its own address.
-
-Typically residential internet service providers allocate a single IPv4 per household.
-A home router takes the public IPv4, and distributes local IPv4 addresses to its clients.
-Using network address translation the router translates between its public IPv4 and the private IPv4s given to clients.
-
 ## DHCP
 
 Dynamic host configuration protocol (DHCP) is a protocol that clients use to request an IP address from the router.

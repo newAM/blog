@@ -205,7 +205,7 @@ Instead I simply wrote nftables rules normally using the NixOS module.
 Below is my basic ruleset for `nftables`. As an example I added two port forwarding rules:
 
 - Port 22 is open for incoming connections to the router itself
-- Port 443 NATs traffic to a webserver running on a client at 172.16.0.2.
+- Port 443 NAT's traffic to a webserver running on a client at `172.16.0.2`.
 
 ```nix
 {
@@ -264,24 +264,95 @@ Below is my basic ruleset for `nftables`. As an example I added two port forward
 }
 ```
 
+<!-- vale off -->
+
 ## DHCP
+
+<!-- vale on -->
 
 Dynamic host configuration protocol (DHCP) is a protocol that clients use to request an IP address from the router.
 
-## DHCP implementation
+<!-- vale off -->
 
-TODO: explain options
+### DHCP implementation
+
+<!-- vale on -->
+
+There are two main options for DHCP. Despite the name Dnsmasq is both a DNS server and a DHCP server.
 
 - [Dnsmasq]
 - [Kea]
 
-I chose Kea simply because I preferred its configuration syntax.
+Both are good choices, but I chose Kea because I have used Dnsmasq in the past and wanted to try something new.
+
+```nix
+{
+  # DHCP server
+  services.kea.dhcp4 = {
+    enable = true;
+    settings = {
+      interfaces-config.interfaces = ["br-lan"];
+      # this is a home network, a CSV file is enough to track DHCP leases
+      lease-database = {
+        name = "/var/lib/kea/dhcp4.leases";
+        persist = true;
+        type = "memfile";
+      };
+      renew-timer = 3600;
+      rebind-timer = 3600 * 2;
+      valid-lifetime = 3600 * 4;
+      subnet4 = [
+        {
+          id = 100;
+          # assign addresses in this range
+          # start at .100 because I use addresses below this for reservations
+          pools = [{pool = "172.16.0.100 - 172.16.0.240";}];
+          subnet = "172.16.0.0/24";
+          reservations = [
+            {
+              # DHCP server will always hand on 172.16.0.42 for a client matching
+              # this MAC address
+              hw-address = "A2:AA:AA:AA:AA:AA";
+              ip-address = "172.16.0.42";
+            }
+          ];
+          option-data = [
+            {
+              # important for clients to have a default route
+              name = "routers";
+              data = "172.16.0.1";
+            }
+            {
+              # tell clients to use our DNS server
+              name = "domain-name-servers";
+              data = "172.16.0.1";
+            }
+          ];
+        }
+      ];
+      # interface for prometheus monitoring
+      control-socket = {
+        socket-type = "unix";
+        socket-name = "/var/run/kea/kea-dhcp4.sock";
+      };
+    };
+  };
+}
+```
+
+<!-- vale off -->
 
 ## DNS
 
-Domain name system (DNS) resolve a domain name to an IP address.
+<!-- vale on -->
+
+Domain name system (DNS) resolves a domain name to an IP address.
+
+<!-- vale off -->
 
 ### DNS implementation
+
+<!-- vale on -->
 
 - [Dnsmasq]
 - [Unbound]
@@ -300,6 +371,24 @@ I only learned about martian packets after starting this project.
 There may be other security items I have completely missed.
 
 TODO: martian packet configuration
+
+```nix
+{
+  boot.kernel.sysctl = {
+    # forward IPv4 on all interfaces
+    "net.ipv4.conf.all.forwarding" = true;
+    # deny martian packets
+    "net.ipv4.conf.default.rp_filter" = 1;
+    "net.ipv4.conf.bond-wan.rp_filter" = 1;
+    "net.ipv4.conf.br-lan.rp_filter" = 1;
+    # Not using IPv6 yet
+    "net.ipv6.conf.all.forwarding" = false;
+    "net.ipv6.conf.all.accept_ra" = 0;
+    "net.ipv6.conf.all.autoconf" = 0;
+    "net.ipv6.conf.all.use_tempaddr" = 0;
+  };
+}
+```
 
 ## Future work
 

@@ -176,7 +176,7 @@ Similar to the WAN I created the bridge netdev, `br-lan`, the networks for each 
         bridgeConfig = {};
         address = [
           # Router private IPv4 in CIDR notation
-          "10.0.0.1/24"
+          "172.16.0.1/24"
         ];
         networkConfig.ConfigureWithoutCarrier = true;
         linkConfig.RequiredForOnline = "no";
@@ -201,6 +201,68 @@ I have experience with the older `iptables`, but `nftables` is recommend for all
 
 I explored using a NixOS DSL for nftables, [notnft], but I decided not to use it right now because it's a complex layer of abstraction that makes it difficult to compare my configuration to examples.
 Instead I simply wrote nftables rules normally using the NixOS module.
+
+Below is my basic ruleset for `nftables`. As an example I added two port forwarding rules:
+
+- Port 22 is open for incoming connections to the router itself
+- Port 443 NATs traffic to a webserver running on a client at 172.16.0.2.
+
+```nix
+{
+  # disable local firewall
+  networking.firewall.enable = false;
+
+  networking.nftables = {
+    enable = true;
+    # Check errors occur because the pre-check is impure, using local hardware
+    # https://discourse.nixos.org/t/nftables-could-not-process-rule-no-such-file-or-directory/33031/5?u=newam
+    preCheckRuleset = ''
+      sed 's/.*devices.*/devices = { lo }/g' -i ruleset.conf
+      sed -i '/flags offload;/d' -i ruleset.conf
+    '';
+    tables = {
+      "filter" = {
+        family = "inet";
+        content = ''
+          chain input {
+            type filter hook input priority 0; policy drop;
+
+            iifname { "br-lan" } accept comment "Allow local network to access the router"
+            iifname "bond-wan" ct state { established, related } accept comment "Allow established traffic"
+            iifname "bond-wan" tcp dport 22 accept "Accept incoming SSH"
+            iifname "bond-wan" tcp dport 443 accept "Accept incoming HTTPS"
+            iifname "bond-wan" counter drop comment "Drop all other unsolicited traffic from WAN"
+            iifname "lo" accept comment "Accept everything from loopback interface"
+          }
+          chain forward {
+            type filter hook forward priority filter; policy drop;
+
+            iifname { "br-lan" } oifname { "bond-wan" } accept comment "Allow trusted LAN to WAN"
+            iifname { "bond-wan" } oifname { "br-lan" } ct state { established, related } accept comment "Allow established back to LANs"
+            iifname { "bond-wan" } oifname { "br-lan" } ct status dnat accept comment "Allow NAT from WAN"
+          }
+        '';
+      };
+      "nat" = {
+        family = "ip";
+        content = ''
+          chain prerouting {
+            type nat hook prerouting priority -100;
+
+            iifname "bond-wan" tcp dport 22 redirect to :22 "Redirect SSH from WAN to router"
+            iifname "bond-wan" tcp dport 443 dnat to 172.16.0.2:443 "NAT HTTPs traffic from WAN to web server"
+          }
+          chain postrouting {
+            type nat hook postrouting priority 100; policy accept;
+
+            ip saddr 172.16.0.0/24 oifname "bond-wan" masquerade comment "masquerade private IP addresses"
+          }
+        '';
+      };
+    };
+  };
+}
+```
 
 ## DHCP
 
@@ -245,6 +307,8 @@ TODO: martian packet configuration
   - Per-client network utilization
   - DHCP lease table
   - Public IP
+- Performance
+  - Hardware acceleration in `nftables`
 - Testing
 - IPv6
 

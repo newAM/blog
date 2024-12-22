@@ -1,5 +1,5 @@
 +++
-title = "NixOS Router Hardware"
+title = "NixOS router hardware"
 description = "Selecting hardware for a router and booting into NixOS."
 date = 2024-12-14
 draft = false

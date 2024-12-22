@@ -1,5 +1,5 @@
 +++
-title = "NixOS Router Software"
+title = "NixOS router software"
 description = "Running all the software required for a router in NixOS."
 date = 2024-12-22
 draft = false

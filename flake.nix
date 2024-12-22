@@ -147,6 +147,20 @@
               touch $out
             '';
 
+          exif = pkgs.runCommand "exiftool" { } ''
+            for image in ${self}/content/images/*.{jpg,png}; do
+              data=$(${pkgs.exiftool}/bin/exiftool -GPS:all -n "$image")
+              if [ -n "$data" ]
+              then
+                echo "Location data exists in $image"
+                exit 1
+              else
+                echo "No location data in $image"
+              fi
+            done
+            touch $out
+          '';
+
           spellcheck =
             pkgs.runCommand "spellcheck"
               {

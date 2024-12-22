@@ -1,6 +1,6 @@
 +++
-title = "NixOS Router"
-description = "Using NixOS for the router on my home network."
+title = "NixOS Router Hardware"
+description = "Selecting hardware for a router and booting into NixOS."
 date = 2024-12-14
 draft = false
 
@@ -63,7 +63,7 @@ Using `sd-mux-ctrl`, you can swap the interface for the SD card in the reader be
 The official [SDWireC quick start](https://badgerd.nl/sdwirec/#quick-start) recommends using `sudo` with `sd-mux-ctrl`.
 Instead I created a udev rule to access the SDWireC and the SD card as my regular user:
 
-```udev
+```
 # SDWireC
 SUBSYSTEM=="usb", ATTRS{idVendor}=="04e8", ATTRS{idProduct}=="6001", OWNER="alex"
 # BPi-R4 SD card over SDWireC

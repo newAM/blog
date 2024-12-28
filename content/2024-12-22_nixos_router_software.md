@@ -601,7 +601,7 @@ I took inspiration from these dashboards:
 
 <!-- vale off -->
 
-{{ img(src="/images/2024-12-22_grafana.png" caption="Grafana Dashboard", width="1661", height="1035") }}
+{{ img(src="/images/2024-12-22_grafana.webp" caption="Grafana Dashboard", width="1661", height="1035") }}
 
 <!-- vale on -->
 
@@ -620,7 +620,7 @@ I decided to purchase a second BPi-R4 to investigate issues as they occur withou
 
 <!-- vale off -->
 
-{{ img(src="/images/2024-12-22_bpi_stack.jpg" caption="Testing (top) and production (bottom) BPi-R4's", width="800", height="651") }}
+{{ img(src="/images/2024-12-22_bpi_stack.webp" caption="Testing (top) and production (bottom) BPi-R4's", width="800", height="651") }}
 
 <!-- vale on -->
 
@@ -681,7 +681,7 @@ This wasn't entirely unexpected because I have largely ignored hardware accelera
 
 <!-- vale off -->
 
-{{ img(src="/images/2024-12-22_router_cutover.png" caption="Latency before and after switching to the BPi-R4", width="1099", height="483") }}
+{{ img(src="/images/2024-12-22_router_cutover.webp" caption="Latency before and after switching to the BPi-R4", width="1099", height="483") }}
 
 <!-- vale on -->
 

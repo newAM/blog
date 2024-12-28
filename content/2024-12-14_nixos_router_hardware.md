@@ -55,8 +55,8 @@ Using `sd-mux-ctrl`, you can swap the interface for the SD card in the reader be
 
 <!-- vale off -->
 
-{{ img(src="/images/2024-12-14_sdwirec_front.jpg" caption="SDWireC Front", width="800", height="424") }}
-{{ img(src="/images/2024-12-14_sdwirec_back.jpg" caption="SDWireC Back", width="800", height="424") }}
+{{ img(src="/images/2024-12-14_sdwirec_front.webp" caption="SDWireC Front", width="800", height="424") }}
+{{ img(src="/images/2024-12-14_sdwirec_back.webp" caption="SDWireC Back", width="800", height="424") }}
 
 <!-- vale on -->
 
@@ -85,8 +85,8 @@ This isn't as pretty as I would like, but I prefer this to running wires from th
 
 <!-- vale off -->
 
-{{ img(src="/images/2024-12-14_bpi_r4_serial_internal.jpg" caption="BPi-R4 USB-C serial mod internals", width="800", height="800") }}
-{{ img(src="/images/2024-12-14_bpi_r4_serial_front.jpg" caption="BPi-R4 USB-C serial mod front view", width="800", height="367") }}
+{{ img(src="/images/2024-12-14_bpi_r4_serial_internal.webp" caption="BPi-R4 USB-C serial mod internals", width="800", height="800") }}
+{{ img(src="/images/2024-12-14_bpi_r4_serial_front.webp" caption="BPi-R4 USB-C serial mod front view", width="800", height="367") }}
 
 <!-- vale on -->
 

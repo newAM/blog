@@ -138,6 +138,7 @@
                     # Lower the level of these
                     "Readability.LIX" = "suggestion";
                     "Readability.FleschReadingEase" = "suggestion";
+                    "Google.Exclamation" = "suggestion";
                   };
                 }
               );

@@ -1,6 +1,0 @@
-exclude = ["themes/**/*.toml"]
-
-[formatting]
-align_comments = false
-align_entries = false
-reorder_keys = false

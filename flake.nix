@@ -116,12 +116,6 @@
             touch $out
           '';
 
-          toml_format = pkgs.runCommand "taplo" { } ''
-            cd ${self}
-            ${pkgs.taplo}/bin/taplo fmt --check
-            touch $out
-          '';
-
           vale =
             let
               valeStyles = pkgs.stdenvNoCC.mkDerivation {

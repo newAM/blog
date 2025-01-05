@@ -1,17 +1,13 @@
-+++
-title = "NixOS router hardware"
-description = "Selecting hardware for a router and booting into NixOS."
-date = 2024-12-14
-draft = false
+```{post} 2024-12-14
+:category: Router
+:tags: NixOS, Router
+```
 
-[taxonomies]
-tags = ["NixOS", "Router"]
+# NixOS router hardware
 
-[extra]
-keywords = "NixOS, Router"
-toc = true
-series = "Router"
-+++
+Selecting hardware for a router and booting into NixOS.
+
+## History
 
 This project started when I bought a [Home Assistant Connect ZBT-1], and smart bulb to tinker with [Thread], a wireless mesh network protocol designed for consumer IoT devices.
 
@@ -53,12 +49,15 @@ To work around this I bought a [SDWireC].
 The SDWireC has a micro SD reader, a micro SD card interface, and a USB-C port.
 Using `sd-mux-ctrl`, you can swap the interface for the SD card in the reader between USB and micro SD without any physical movement.
 
-<!-- vale off -->
+```{figure} sdwirec_front.webp
 
-{{ img(src="/images/2024-12-14_sdwirec_front.webp" caption="SDWireC Front", width="800", height="424") }}
-{{ img(src="/images/2024-12-14_sdwirec_back.webp" caption="SDWireC Back", width="800", height="424") }}
+SDWireC Front
+```
 
-<!-- vale on -->
+```{figure} sdwirec_back.webp
+
+SDWireC Back
+```
 
 The official [SDWireC quick start](https://badgerd.nl/sdwirec/#quick-start) recommends using `sudo` with `sd-mux-ctrl`.
 Instead I created a udev rule to access the SDWireC and the SD card as my regular user:
@@ -83,12 +82,15 @@ On ebay I bought a panel mount USB-C to 3.3V serial adapter.
 I drilled two holes in the front panel for the mounting screws, and used a sheet metal nibbler[^2] to cut out a hole for the USB-C port.
 This isn't as pretty as I would like, but I prefer this to running wires from the internal headers, and an external USB to serial dongle.
 
-<!-- vale off -->
+```{figure} bpi_r4_serial_internal.webp
 
-{{ img(src="/images/2024-12-14_bpi_r4_serial_internal.webp" caption="BPi-R4 USB-C serial mod internals", width="800", height="800") }}
-{{ img(src="/images/2024-12-14_bpi_r4_serial_front.webp" caption="BPi-R4 USB-C serial mod front view", width="800", height="367") }}
+BPi-R4 USB-C serial mod internals
+```
 
-<!-- vale on -->
+```{figure} bpi_r4_serial_front.webp
+
+BPi-R4 USB-C serial mod front view
+```
 
 ### Real-time clock
 
@@ -236,7 +238,7 @@ Instead of doing the smart thing I just tweaked the addresses until I found some
 })
 ```
 
-```txt
+```
 // mt7988-nixos.env
 fdt_addr_r=0x87800000
 kernel_addr_r=0x46000000

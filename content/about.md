@@ -1,9 +1,4 @@
-+++
-title = "About"
-path = "about"
-template = "pages.html"
-draft = false
-+++
+# About
 
 My name is Alex. I make things.
 

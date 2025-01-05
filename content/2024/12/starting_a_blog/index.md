@@ -1,17 +1,9 @@
-+++
-title = "Starting a blog"
-description = "Why and how I created the ThingLab blog."
-date = 2024-12-11
-draft = false
+```{post} 2024-12-11
+:category: Blog
+:tags: Blog
+```
 
-[taxonomies]
-tags = ["Blog"]
-
-[extra]
-keywords = "Blog, Zola, Abridge"
-toc = true
-series = "Blog"
-+++
+# Starting a blog
 
 Why and how I created the ThingLab blog.
 
@@ -122,6 +114,7 @@ My static site generator short list was:
   </tr>
   </tbody>
 </table>
+</br>
 
 None of these are bad choices. I chose [Zola] with the [abridge theme] because it was best aligned with what I like in software, fast and reasonably minimal.
 

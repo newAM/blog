@@ -1,18 +1,10 @@
 {
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # nix flakes do not support submodules natively
-    # see: https://github.com/NixOS/nix/pull/7862
-    abridge.url = "github:jieiku/abridge";
-    abridge.flake = false;
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs =
     {
       self,
       nixpkgs,
-      abridge,
     }:
     let
       forEachSystem = nixpkgs.lib.genAttrs [
@@ -26,6 +18,34 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+
+          python3 = pkgs.python3.override {
+            packageOverrides = pyfinal: pyprev: {
+              sphinxcontrib-svgbob = pkgs.callPackage ./sphinxcontrib-svgbob.nix {
+                inherit (pkgs.python3.pkgs)
+                  buildPythonPackage
+                  pytestCheckHook
+                  sphinx
+                  setuptools
+                  setuptools-rust
+                  ;
+              };
+              sphinx-favicon = pkgs.callPackage ./sphinx-favicon.nix {
+                inherit (pkgs.python3.pkgs)
+                  buildPythonPackage
+                  sphinx
+                  setuptools
+                  ;
+              };
+              sphinxext-rediraffe = pkgs.callPackage ./sphinxext-rediraffe.nix {
+                inherit (pkgs.python3.pkgs)
+                  buildPythonPackage
+                  sphinx
+                  setuptools
+                  ;
+              };
+            };
+          };
         in
         {
           default = pkgs.stdenvNoCC.mkDerivation {
@@ -33,19 +53,46 @@
 
             src = self;
 
-            nativeBuildInputs = [ pkgs.zola ];
+            nativeBuildInputs = [
+              pkgs.ablog
+              python3.pkgs.myst-parser
+              python3.pkgs.pydata-sphinx-theme
+              python3.pkgs.sphinx
+              python3.pkgs.sphinx-copybutton
+              python3.pkgs.sphinx-favicon
+              python3.pkgs.sphinx-sitemap
+              python3.pkgs.sphinxcontrib-spelling
+              python3.pkgs.sphinxcontrib-svgbob
+              python3.pkgs.sphinxext-rediraffe
+            ];
 
-            # need to remove static directory to workaround:
-            # https://github.com/getzola/zola/issues/2677
+            env.NIX_LAST_MODIFIED_DATE = self.lastModifiedDate;
+
             buildPhase = ''
-              mkdir themes
-              cp -r ${abridge} themes/abridge
-              chmod +w -R themes/abridge
-              rm themes/abridge/static/*.{png,ico,svg}
-              zola build --output-dir $out
+              sphinx-build -b dirhtml --fail-on-warning $src/content $out
+              # backwards compatibility with previous zola blog
+              ln -s $out/blog/atom.xml $out/atom.xml
             '';
 
             dontInstall = true;
+          };
+        }
+      );
+
+      devShells = forEachSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            inputsFrom = [ self.packages.${system}.default ];
+
+            env.DICPATH = "${pkgs.hunspellDicts.en_US-large}/share/hunspell";
+
+            packages = [
+              pkgs.python3.pkgs.sphinx-autobuild
+            ];
           };
         }
       );
@@ -135,6 +182,10 @@
                     # TLAs are everywhere, using my best judgement
                     "Google.Acronyms" = "NO";
                     "Microsoft.Acronyms" = "NO";
+                    # same as Google.Headings
+                    "Microsoft.Headings" = "NO";
+                    # same as Microsoft.Contractions
+                    "Google.Contractions" = "NO";
                     # Lower the level of these
                     "Readability.LIX" = "suggestion";
                     "Readability.FleschReadingEase" = "suggestion";
@@ -144,7 +195,7 @@
               );
             in
             pkgs.runCommand "vale" { } ''
-              ${pkgs.vale}/bin/vale --config=${valeConfig} ${self}/**/*.md
+              ${pkgs.vale}/bin/vale --config=${valeConfig} $(find ${self} -iname '*.md')
               touch $out
             '';
 
@@ -162,18 +213,15 @@
             touch $out
           '';
 
-          spellcheck =
-            pkgs.runCommand "spellcheck"
-              {
-                buildInputs = with pkgs; [
-                  (hunspellWithDicts [ hunspellDicts.en-us-large ])
-                ];
-              }
-              ''
-                LANG="en_US.UTF-8" hunspell -p ${./words.txt} -l -H ${site}/**/*.html | tee mistakes.txt
-                [ $(wc -l < mistakes.txt) -gt 0 ] && exit 1
-                touch $out
-              '';
+          spelling = self.packages.${system}.default.overrideAttrs (oA: {
+            name = "spelling";
+            env = oA.env // {
+              DICPATH = "${pkgs.hunspellDicts.en_US-large}/share/hunspell";
+            };
+            buildPhase = ''
+              sphinx-build -b spelling --fail-on-warning content $out
+            '';
+          });
         }
       );
     };

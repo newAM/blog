@@ -1,20 +1,15 @@
-+++
-title = "State of the home server 2024"
-description = "My home server hardware, and the services I run."
-date = 2024-12-28
-draft = false
+```{post} 2024-12-28
+:category: Server
+:tags: Server
+```
 
-[taxonomies]
-tags = ["Server"]
+<!-- description = "My home server hardware, and the services I run." -->
 
-[extra]
-keywords = "Server"
-toc = true
-+++
+# State of the home server 2024
 
 In 2024 I built a new home server.
 
-# Old server
+## Old server
 
 This server was great, it served me for 8 years with minor upgrades along the way.
 The best part was the low idle power, 40-50 Watts with the disks spun up.
@@ -26,11 +21,7 @@ A bigger problem started when I bought two GPUs to tinker with stable diffusion,
 My PCIe slots were already full with an SFP+ adapter and PCIe to M.2 adapter.
 Physically the case was too small to fit a large GPU even if I had enough PCIe slots.
 
-<!-- vale off -->
-
-{{ img(src="/images/2024-12-28_old_server.webp", width="800", height="652") }}
-
-<!-- vale on -->
+![Old Server](old_server.webp)
 
 - CPU: [Intel Xeon E3-1230 v5], a 2015 era quad core CPU
 - Motherboard: Micro ATX Supermicro MBD-X11SSL-F-O, IPMI, 6 SATA ports, not a lot else
@@ -39,13 +30,9 @@ Physically the case was too small to fit a large GPU even if I had enough PCIe s
 - NVMe storage: [8 TB Sabrent Rocket 4 Plus]
 - Bulk storage: 6× [20 TB Western Digital Red Pro]
 
-# New server
+## New server
 
-<!-- vale off -->
-
-{{ img(src="/images/2024-12-28_new_server.webp", width="800", height="730") }}
-
-<!-- vale on -->
+![New Server](new_server.webp)
 
 The new server doesn't look much bigger, but that's two GPUs in there!
 
@@ -88,7 +75,7 @@ The case is utilitarian, it's flat, black, and it has foam lined case panels for
 
 The PiKVM is my IPMI replacement. I wanted to manage the server BIOS without connecting a monitor & keyboard. The PiKVM is far better than IPMI in my opinion, uploading ISOs is faster, and the video quality is better with lower latency. I never exposed my IPMI interface to the internet, but the PiKVM makes it easy to modify the nginx configuration to add TLS certificates and other hardening to securely expose it to the internet.
 
-## Power draw
+### Power draw
 
 In an idle state with all 6 drives spun up, the GPU memory populated with an LLM, and a 10 GbE link the AC power draw is ~115 W, as measured by the power supply.
 I used [TLP] to turn off desktop components I wasn't using, Bluetooth, Wi-Fi, and sound.
@@ -99,7 +86,7 @@ I used [TLP] to turn off desktop components I wasn't using, Bluetooth, Wi-Fi, an
 
 My IPMI replacement, the PiKVM, adds another 2.5 W.
 
-## Services
+### Services
 
 - [Borg backup]: Deduplicating backup tool with compression and encryption.
 - [fail2ban]: Ban hosts that cause repeat authentication errors, helps keep my logs readable
@@ -118,7 +105,7 @@ My IPMI replacement, the PiKVM, adds another 2.5 W.
 - [Syncthing]: File synchronization, primarily used for photo synchronization from my phone
 - [WireGuard]: Fast VPN to access services from outside my network
 
-### New in 2024
+#### New in 2024
 
 - [Forgejo runner]: CI runner for Forgejo
 - [Forgejo]: A web interface for git repositories
@@ -129,7 +116,7 @@ My IPMI replacement, the PiKVM, adds another 2.5 W.
 - [oauth2-proxy]: Add single-sign-on to services that don't natively support it
 - [oidc_pages]: Serves various static HTML websites for myself and my family
 
-#### Single sign-on
+##### Single sign-on
 
 The biggest change this year is adding SSO to majority of my self-hosted services.
 I used Keycloak as my SSO provider, because it was well supported in NixOS.
@@ -148,7 +135,7 @@ I still have two major outliers without OIDC, Home Assistant and Jellyfin.
 It's possible to secure these with OIDC, but then the mobile applications don't work.
 There are community efforts to add OIDC to these, but take time before they make it into an official release.
 
-#### Forgejo
+##### Forgejo
 
 Forgejo is a git WebUI, it's a fork of Gitea, which is a fork of Gogs.
 
@@ -157,7 +144,7 @@ I decided to run Forgejo for the CI capabilities to build my internal homelab do
 
 NixOS uses their own CI tool, [hydra], but it doesn't have native OIDC.
 
-### minio
+#### minio
 
 minio is a self-hosted object storage service with an S3 API.
 minio is capable of a lot, but I use it as a simple way to share large files.
@@ -167,7 +154,7 @@ It's a two step process to generate a temporary download link:
 1. Upload file to bucket `mc cp photos_to_share.zip myminio/share/`
 2. Share uploaded file: `mc share download myminio/share/photos_to_share.zip`
 
-### llama.cpp
+#### llama.cpp
 
 <!-- vale Google.Units = NO -->
 
@@ -192,14 +179,14 @@ They have been useful a couple times for answering questions when I don't have i
 
 <!-- vale Google.Units = YES -->
 
-## Data storage
+### Data storage
 
 On my home server I use ZFS in raidz3, giving me 51 TiB of usable storage from the 120 TB of raw storage.
 I don't need 3 disks of hardware redundancy in a 6 disk array, but I am planning to add more drives as necessary with the new [raidz expansion feature].
 With raidz expansion I can add more disks, but I can't change the RAID configuration.
 RAIDZ3 doesn't make sense with 6 disks, but it does make sense if I end up with 12 disks by the time this server reaches its end of life.
 
-### Backups
+#### Backups
 
 My backup server lives with a family member, in exchange they can backup their data to the server.
 
@@ -214,7 +201,7 @@ Using a different filesystem for the backup server lets me recover from future Z
 To move data between my home server and the backup I use [Borg backup].
 Borg is the one-stop-shop for backups, with support for snapshots, compression, end-to-end encryption, and deduplication.
 
-# Looking forward
+## Looking forward
 
 There are a lot of things I want to self-host in 2025!
 

@@ -1,12 +1,8 @@
-+++
-title = "Privacy Policy"
-description = "This page outlines the Privacy Policy for this site, and the date at which this policy was put into affect."
-path = "privacy"
-template = "pages.html"
-draft = false
-+++
+# Privacy
 
-## Privacy
+<!-- vale Microsoft.Contractions = NO -->
+<!-- vale Microsoft.Passive = NO -->
+<!-- vale Google.Passive = NO -->
 
 - This site does not set or use cookies.
 - This site does not store data in the browser to be shared, sent, or sold to third-parties.

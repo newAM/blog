@@ -1,28 +1,12 @@
 {
   "nodes": {
-    "abridge": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734729110,
-        "narHash": "sha256-9qrfEpRUcLyPgokzfEBuVwickKlLr0YaDS0dLH3Arn0=",
-        "owner": "jieiku",
-        "repo": "abridge",
-        "rev": "004df72a1176ee50b51f0be257341337f1dc52eb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jieiku",
-        "repo": "abridge",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1734649271,
-        "narHash": "sha256-4EVBRhOjMDuGtMaofAIqzJbg4Ql7Ai0PSeuVZTHjyKQ=",
+        "lastModified": 1735834308,
+        "narHash": "sha256-dklw3AXr3OGO4/XT1Tu3Xz9n/we8GctZZ75ZWVqAVhk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d70bd19e0a38ad4790d3913bf08fcbfc9eeca507",
+        "rev": "6df24922a1400241dae323af55f30e4318a6ca65",
         "type": "github"
       },
       "original": {
@@ -34,7 +18,6 @@
     },
     "root": {
       "inputs": {
-        "abridge": "abridge",
         "nixpkgs": "nixpkgs"
       }
     }

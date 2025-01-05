@@ -1,0 +1,4 @@
+Sitemap: https://thinglab.org/sitemap.xml
+User-Agent: *
+Allow: /
+Host: https://thinglab.org

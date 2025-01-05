@@ -1,17 +1,13 @@
-+++
-title = "NixOS router software"
-description = "Running all the software required for a router in NixOS."
-date = 2024-12-22
-draft = false
+```{post} 2024-12-22
+:category: Router
+:tags: NixOS, Router
+```
 
-[taxonomies]
-tags = ["NixOS", "Router"]
+# NixOS router software
 
-[extra]
-keywords = "NixOS, Router"
-toc = true
-series = "Router"
-+++
+Running all the software required for a router in NixOS.
+
+## Goals
 
 My goal with the software side of the router is to first replace the existing usecases of my EdgeRouter, which are:
 
@@ -469,11 +465,20 @@ You can configure the EdgeRouter through the WebUI, but the WebUI is most useful
 
 To create a similar dashboard to display network activity and router health I used [Prometheus] and [Grafana].
 
-<!-- vale off -->
+```{svgbob}
 
-{{ img(src="/images/2024-12-22_router_metrics_dark.svg" caption="Dashboard block diagram", width="800", height="192") }}
-
-<!-- vale on -->
++--------------------------------+  +-------------------------------------------------------------+
+| Server                         |  |  Router                                                     |
+|                                |  |  +-------+     +------------------+             +---------+ |
+|                                |  |  |       | --> | Unbound Exporter | --socket -> | Unbound | |
+| +---------+    +------------+  |  |  |       |     +------------------+             +---------+ |
+| | Grafana | -> | Prometheus |--|--|->| nginx |                                                  |
+| +---------+    +------------+  |  |  |       |     +------------------+             +---------+ |
+|                                |  |  |       | --> | Kea Exporter     | --socket -> | Kea     | |
+|                                |  |  +-------+     +------------------+             +---------+ |
+|                                |  |                                                             |
++--------------------------------+  +-------------------------------------------------------------+
+```
 
 The first step is to collect the metrics, and store them in a database, for this I used [Prometheus].
 
@@ -599,11 +604,10 @@ I took inspiration from these dashboards:
 - [Unbound DNS resolver metrics](https://grafana.com/grafana/dashboards/11705-unbound) for the response time heatmap
 - [Node Exporter Full](https://grafana.com/grafana/dashboards/1860-node-exporter-full) for the network traffic
 
-<!-- vale off -->
+```{figure} grafana.webp
 
-{{ img(src="/images/2024-12-22_grafana.webp" caption="Grafana Dashboard", width="1661", height="1035") }}
-
-<!-- vale on -->
+Grafana Dashboard
+```
 
 I want to add the DHCP lease table to Grafana in the future.
 The kea control socket exposes lease information, but the scraper doesn't gather it.
@@ -618,11 +622,10 @@ Other people have also reported issues, such as the [Ethernet failing under heav
 
 I decided to purchase a second BPi-R4 to investigate issues as they occur without disturbing my home internet.
 
-<!-- vale off -->
+```{figure} bpi_stack.webp
 
-{{ img(src="/images/2024-12-22_bpi_stack.webp" caption="Testing (top) and production (bottom) BPi-R4's", width="800", height="651") }}
-
-<!-- vale on -->
+Testing (top) and production (bottom) BPi-R4s
+```
 
 ### Boot reliability
 
@@ -638,11 +641,12 @@ I suspect a kernel update fixed the underlying issue.
 
 I connected the BPi WAN to my home server with 10 Gbps SFP+, and connected a spare raspberry pi on the WAN side as a client.
 
-<!-- vale off -->
+```{svgbob}
 
-{{ img(src="/images/2024-12-22_router_load_test_dark.svg" caption="Testing connections", width="456", height="64") }}
-
-<!-- vale on -->
++--------+               +--------+              +-----+
+| Server | <--10 Gbps -> | BPi R4 | <--1 Gbps -> | RPi |
++--------+               +--------+              +-----+
+```
 
 I used iperf3 between the raspberry pi and my home server to put the router under load.
 This isn't a perfect test because there's only a single client, in reality there are dozens of clients on my network.
@@ -679,11 +683,10 @@ Notably the latency to Cloudflare's DNS increased from ~750 µs to ~1 ms.
 
 This wasn't entirely unexpected because I have largely ignored hardware acceleration and performance in general.
 
-<!-- vale off -->
+```{figure} router_cutover.webp
 
-{{ img(src="/images/2024-12-22_router_cutover.webp" caption="Latency before and after switching to the BPi-R4", width="1099", height="483") }}
-
-<!-- vale on -->
+Latency before and after switching to the BPi-R4
+```
 
 I was running load testing after deploying the BPi-R4, which caused the large latency spikes seen on the BPi-R4 side.
 

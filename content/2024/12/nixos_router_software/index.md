@@ -1,9 +1,9 @@
-```{post} 2024-12-22
+# NixOS router software
+
+```{blogpost} 2024-12-22
 :category: Router
 :tags: NixOS, Router
 ```
-
-# NixOS router software
 
 Running all the software required for a router in NixOS.
 

@@ -1,11 +1,11 @@
-```{post} 2024-12-28
-:category: Server
-:tags: Server
-```
-
 <!-- description = "My home server hardware, and the services I run." -->
 
 # State of the home server 2024
+
+```{blogpost} 2024-12-28
+:category: Server
+:tags: Server
+```
 
 In 2024 I built a new home server.
 

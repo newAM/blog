@@ -2,8 +2,10 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  sphinx,
   setuptools,
+  sphinx,
+  pytestCheckHook,
+  beautifulsoup4,
 }:
 
 buildPythonPackage rec {
@@ -24,6 +26,19 @@ buildPythonPackage rec {
 
   dependencies = [
     sphinx
+  ];
+
+  nativeCheckInputs = [
+    pytestCheckHook
+  ];
+
+  checkInputs = [
+    beautifulsoup4
+  ];
+
+  disabledTests = [
+    # requires network to download favicons
+    "test_list_of_three_icons_automated_values"
   ];
 
   pythonImportsCheck = [ "sphinx_favicon" ];

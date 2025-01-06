@@ -18,8 +18,9 @@ buildPythonPackage rec {
   };
 
   postPatch = ''
+    # Fixes "packaging.version.InvalidVersion: Invalid version: 'main'"
     substituteInPlace setup.py \
-        --replace-fail 'version = "main"' 'version = "${version}"'
+      --replace-fail 'version = "main"' 'version = "${version}"'
   '';
 
   build-system = [
@@ -30,6 +31,9 @@ buildPythonPackage rec {
     sphinx
   ];
 
+  # tests require seleniumbase which is not currently in nixpkgs
+  doCheck = false;
+
   pythonImportsCheck = [ "sphinxext.rediraffe" ];
 
   pythonNamespaces = [ "sphinxext" ];
@@ -37,6 +41,7 @@ buildPythonPackage rec {
   meta = {
     description = "Sphinx extension to redirect files";
     homepage = "https://github.com/wpilibsuite/sphinxext-rediraffe";
+    changelog = "https://github.com/wpilibsuite/sphinxext-rediraffe/releases/tag/v${version}";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.newam ];
   };

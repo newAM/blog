@@ -21,29 +21,8 @@
 
           python3 = pkgs.python3.override {
             packageOverrides = pyfinal: pyprev: {
-              sphinxcontrib-svgbob = pkgs.callPackage ./sphinxcontrib-svgbob.nix {
-                inherit (pkgs.python3.pkgs)
-                  buildPythonPackage
-                  pytestCheckHook
-                  sphinx
-                  setuptools
-                  setuptools-rust
-                  ;
-              };
-              sphinx-favicon = pkgs.callPackage ./sphinx-favicon.nix {
-                inherit (pkgs.python3.pkgs)
-                  buildPythonPackage
-                  sphinx
-                  setuptools
-                  ;
-              };
-              sphinxext-rediraffe = pkgs.callPackage ./sphinxext-rediraffe.nix {
-                inherit (pkgs.python3.pkgs)
-                  buildPythonPackage
-                  sphinx
-                  setuptools
-                  ;
-              };
+              sphinx-favicon = pkgs.python3.pkgs.callPackage ./sphinx-favicon.nix { };
+              sphinxext-rediraffe = pkgs.python3.pkgs.callPackage ./sphinxext-rediraffe.nix { };
             };
           };
         in
@@ -54,15 +33,16 @@
             src = self;
 
             nativeBuildInputs = [
-              pkgs.ablog
+              pkgs.svgbob
+              python3.pkgs.dateutils
+              python3.pkgs.feedgen
+              python3.pkgs.furo
               python3.pkgs.myst-parser
-              python3.pkgs.pydata-sphinx-theme
               python3.pkgs.sphinx
               python3.pkgs.sphinx-copybutton
               python3.pkgs.sphinx-favicon
               python3.pkgs.sphinx-sitemap
               python3.pkgs.sphinxcontrib-spelling
-              python3.pkgs.sphinxcontrib-svgbob
               python3.pkgs.sphinxext-rediraffe
             ];
 
@@ -70,8 +50,6 @@
 
             buildPhase = ''
               sphinx-build -b dirhtml --fail-on-warning $src/content $out
-              # backwards compatibility with previous zola blog
-              ln -s $out/blog/atom.xml $out/atom.xml
             '';
 
             dontInstall = true;

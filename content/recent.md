@@ -1,0 +1,5 @@
+# Recent posts
+
+```{blogrecent}
+
+```

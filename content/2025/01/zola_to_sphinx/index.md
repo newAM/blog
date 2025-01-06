@@ -1,11 +1,12 @@
-```{post} 2025-01-04
-:category: Blog
-:tags: Blog
-```
-
 <!-- vale Google.Headings = NO -->
 
 # Zola to Sphinx
+
+```{blogpost} 2025-01-04
+:category: Blog
+:tags: Blog
+:updated: 2025-01-05
+```
 
 Switching my blog from Zola to Sphinx.
 
@@ -101,7 +102,7 @@ I had to use [sphinx-sitemap] to generate a sitemap, and [sphinx-favicon] to sup
 The migration itself was straightforward.
 I spent most of the time theming and configuring to my taste.
 
-I chose the [PyData Theme] because it met the requirements I set out in {ref}`starting_a_blog`.
+I chose the [PyData Theme] because it met the requirements I set out in {doc}`/2024/12/starting_a_blog/index`.
 Notably it respected the system dark/light theme, which many Sphinx themes don't.
 
 The content changes consisted of:
@@ -135,6 +136,28 @@ While Sphinx is more complex than Zola, the wealth of extensions justify the swi
 If you're reading this then the migration is complete.
 I hope you like the new theme!
 
+## Update 2025-01-05
+
+I changed the theme again.
+
+After checking [PageSpeed Insights] I noticed that the score for my blog had dropped from a near perfect 99/100 on mobile to a dismal 61/100.
+
+```{figure} page_speed.png
+
+Page speed after switching to Sphinx with the PyData theme.
+```
+
+This is mostly due to the [PyData Theme] I chose.
+After some more digging I found [furo], a much lighter theme that works well with javascript turned off.
+
+Unfortunately [ABlog] and [furo] didn't work together out of the box.
+Both repositories have unresolved issues since 2021 to support each other.
+
+- [furo/discussions/262: Support for ABlog](https://github.com/pradyunsg/furo/discussions/262)
+- [ablog/issues/108: ABlog support for furo theme](https://github.com/sunpy/ablog/issues/108)
+
+I ended up writing my own ABlog replacement to generate pages for tags, archives, and atom feeds.
+
 [^1]: From prior experience I don't recommend using these extensions if you need to generate PDFs from Sphinx documentation
 
 [Zola]: https://www.getzola.org
@@ -146,3 +169,5 @@ I hope you like the new theme!
 [sphinx-favicon]: https://pypi.org/project/sphinx-favicon/
 [Sphinx book theme]: https://sphinx-book-theme.readthedocs.io/en/stable
 [PyData Theme]: https://pydata-sphinx-theme.readthedocs.io/en/stable/
+[PageSpeed Insights]: https://pagespeed.web.dev
+[furo]: https://github.com/pradyunsg/furo

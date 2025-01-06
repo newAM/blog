@@ -4,19 +4,20 @@ I make things.
 
 A mix of software, firmware, and hardware projects.
 
-## Posts
+## Recent
 
-```{postlist}
-:list-style: circle
-:format: {date} {title}
-:date: %Y-%m-%d
+```{blogrecent}
+
 ```
 
-## Misc
+## Pages
 
 ```{toctree}
 :maxdepth: 1
 
+recent
+archive
+tags
 about
 privacy
 ```

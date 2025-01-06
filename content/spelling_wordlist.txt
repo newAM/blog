@@ -1,5 +1,6 @@
 Asus
 bootups
+ABlog
 BPi
 Buildable
 Cloudflare
@@ -32,6 +33,7 @@ Jellyfin
 Keycloak
 metasearch
 minio
+javascript
 natively
 netdev
 nftables

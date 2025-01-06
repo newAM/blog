@@ -1,9 +1,9 @@
-```{post} 2024-12-11
+# Starting a blog
+
+```{blogpost} 2024-12-11
 :category: Blog
 :tags: Blog
 ```
-
-# Starting a blog
 
 Why and how I created the ThingLab blog.
 

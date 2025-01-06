@@ -1,9 +1,9 @@
-```{post} 2024-12-14
+# NixOS router hardware
+
+```{blogpost} 2024-12-14
 :category: Router
 :tags: NixOS, Router
 ```
-
-# NixOS router hardware
 
 Selecting hardware for a router and booting into NixOS.
 

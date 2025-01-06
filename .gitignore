@@ -1,4 +1,5 @@
 .direnv
+__pycache__
 build/
 node_modules
 public

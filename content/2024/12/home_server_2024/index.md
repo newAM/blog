@@ -21,7 +21,10 @@ A bigger problem started when I bought two GPUs to tinker with stable diffusion,
 My PCIe slots were already full with an SFP+ adapter and PCIe to M.2 adapter.
 Physically the case was too small to fit a large GPU even if I had enough PCIe slots.
 
-![Old Server](old_server.webp)
+```{figure} old_server.webp
+:width: 800
+:height: 652
+```
 
 - CPU: [Intel Xeon E3-1230 v5], a 2015 era quad core CPU
 - Motherboard: Micro ATX Supermicro MBD-X11SSL-F-O, IPMI, 6 SATA ports, not a lot else
@@ -32,7 +35,10 @@ Physically the case was too small to fit a large GPU even if I had enough PCIe s
 
 ## New server
 
-![New Server](new_server.webp)
+```{figure} new_server.webp
+:width: 800
+:height: 730
+```
 
 The new server doesn't look much bigger, but that's two GPUs in there!
 

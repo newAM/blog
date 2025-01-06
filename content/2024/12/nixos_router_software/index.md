@@ -605,6 +605,8 @@ I took inspiration from these dashboards:
 - [Node Exporter Full](https://grafana.com/grafana/dashboards/1860-node-exporter-full) for the network traffic
 
 ```{figure} grafana.webp
+:width: 1661
+:height: 1035
 
 Grafana Dashboard
 ```
@@ -623,6 +625,8 @@ Other people have also reported issues, such as the [Ethernet failing under heav
 I decided to purchase a second BPi-R4 to investigate issues as they occur without disturbing my home internet.
 
 ```{figure} bpi_stack.webp
+:width: 800
+:height: 651
 
 Testing (top) and production (bottom) BPi-R4s
 ```
@@ -684,6 +688,8 @@ Notably the latency to Cloudflare's DNS increased from ~750 µs to ~1 ms.
 This wasn't entirely unexpected because I have largely ignored hardware acceleration and performance in general.
 
 ```{figure} router_cutover.webp
+:width: 1099
+:height: 483
 
 Latency before and after switching to the BPi-R4
 ```

@@ -143,8 +143,6 @@ I changed the theme again.
 After checking [PageSpeed Insights] I noticed that the score for my blog had dropped from a near perfect 99/100 on mobile to a dismal 61/100.
 
 ```{figure} page_speed.png
-:width: 759
-:height: 597
 
 Page speed after switching to Sphinx with the PyData theme.
 ```

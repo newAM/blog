@@ -22,8 +22,7 @@ My PCIe slots were already full with an SFP+ adapter and PCIe to M.2 adapter.
 Physically the case was too small to fit a large GPU even if I had enough PCIe slots.
 
 ```{figure} old_server.webp
-:width: 800
-:height: 652
+
 ```
 
 - CPU: [Intel Xeon E3-1230 v5], a 2015 era quad core CPU
@@ -36,8 +35,7 @@ Physically the case was too small to fit a large GPU even if I had enough PCIe s
 ## New server
 
 ```{figure} new_server.webp
-:width: 800
-:height: 730
+
 ```
 
 The new server doesn't look much bigger, but that's two GPUs in there!

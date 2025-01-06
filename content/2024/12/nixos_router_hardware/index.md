@@ -50,15 +50,11 @@ The SDWireC has a micro SD reader, a micro SD card interface, and a USB-C port.
 Using `sd-mux-ctrl`, you can swap the interface for the SD card in the reader between USB and micro SD without any physical movement.
 
 ```{figure} sdwirec_front.webp
-:width: 800
-:height: 424
 
 SDWireC Front
 ```
 
 ```{figure} sdwirec_back.webp
-:width: 800
-:height: 424
 
 SDWireC Back
 ```
@@ -87,15 +83,11 @@ I drilled two holes in the front panel for the mounting screws, and used a sheet
 This isn't as pretty as I would like, but I prefer this to running wires from the internal headers, and an external USB to serial dongle.
 
 ```{figure} bpi_r4_serial_internal.webp
-:width: 794
-:height: 800
 
 BPi-R4 USB-C serial mod internals
 ```
 
 ```{figure} bpi_r4_serial_front.webp
-:width: 800
-:height: 367
 
 BPi-R4 USB-C serial mod front view
 ```

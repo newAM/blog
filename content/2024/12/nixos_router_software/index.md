@@ -607,6 +607,7 @@ I took inspiration from these dashboards:
 ```{figure} grafana.webp
 :width: 1661
 :height: 1035
+:scale: 48%
 
 Grafana Dashboard
 ```
@@ -690,6 +691,7 @@ This wasn't entirely unexpected because I have largely ignored hardware accelera
 ```{figure} router_cutover.webp
 :width: 1099
 :height: 483
+:scale: 72%
 
 Latency before and after switching to the BPi-R4
 ```

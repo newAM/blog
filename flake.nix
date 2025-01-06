@@ -50,6 +50,7 @@
 
             buildPhase = ''
               sphinx-build -b dirhtml --fail-on-warning $src/content $out
+              touch $out/.nojekyll
             '';
 
             dontInstall = true;

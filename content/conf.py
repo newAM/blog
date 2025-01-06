@@ -52,7 +52,6 @@ nitpicky = True
 # HTML style
 ###############################################################################
 
-# pygments_style = "sphinx"
 pygments_dark_style = "monokai"
 
 favicons = [

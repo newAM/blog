@@ -151,7 +151,7 @@ This is mostly due to the [PyData Theme] I chose.
 After some more digging I found [furo], a much lighter theme that works well with javascript turned off.
 
 Unfortunately [ABlog] and [furo] didn't work together out of the box.
-Both repositories have unresolved issues since 2021 to support each other.
+Both repositories have unresolved issues to support each other since 2021.
 
 - [furo/discussions/262: Support for ABlog](https://github.com/pradyunsg/furo/discussions/262)
 - [ablog/issues/108: ABlog support for furo theme](https://github.com/sunpy/ablog/issues/108)

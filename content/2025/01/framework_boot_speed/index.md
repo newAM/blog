@@ -89,12 +89,16 @@ NixOS provides `syncthing-init` which uses to HTTP API to configure Syncthing ea
 To fix `syncthing-init` blocking boot I configured the service order of `syncthing-init` to run after `graphical.target` on my systems with a desktop environment.
 
 ```nix
-let
-  isDesktopEnv = config.programs.sway.enable || config.services.xserver.enable;
-  after = [ "networking.target" ] ++ lib.optionals isDesktopEnv [ "graphical.target" ];
-in
+{ config, ... }:
 {
-  systemd.services.syncthing.after = lib.mkForce after;
+  systemd.services.syncthing-init = {
+    wantedBy = lib.mkForce (
+      if config.programs.sway.enable then [ "graphical.target" ] else [ "multi-user.target" ]
+    );
+    after = lib.mkForce (
+      [ "syncthing.service" ] ++ lib.optionals config.programs.sway.enable [ "graphical.target" ]
+    );
+  };
 }
 ```
 

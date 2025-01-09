@@ -66,7 +66,8 @@ html_sourcelink_suffix = ""
 html_copy_source = False
 html_show_sourcelink = False
 
-html_baseurl = "https://thinglab.org"
+# NB: must have trailing "/" for sitemap
+html_baseurl = "https://thinglab.org/"
 
 html_theme = "furo"
 html_theme_options = {
@@ -99,6 +100,16 @@ html_theme_options = {
 }
 
 html_extra_path = ["robots.txt"]
+
+# generate sitemap for default locale only
+sitemap_locales = [None]
+
+sitemap_url_scheme = "{link}"
+
+sitemap_excludes = [
+    "genindex/",
+    "search/",
+]
 
 ###############################################################################
 # Spelling

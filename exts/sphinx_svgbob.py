@@ -22,15 +22,15 @@ class SvgbobDirective(SphinxDirective):
     def run(self) -> List[nodes.Node]:
         source: str = "\n".join(self.content)
 
+        args = [
+            "svgbob",
+            "--stroke-color", "currentColor",
+            "--fill-color", "currentColor",
+            "--background", "transparent",
+        ]  # fmt: skip
+
         proc = subprocess.run(
-            [
-                "svgbob",
-                # fmt: off
-                "--stroke-color", "currentColor",
-                "--fill-color", "currentColor",
-                "--background", "transparent",
-                # fmt: on
-            ],
+            args,
             input=source,
             stdout=subprocess.PIPE,
             encoding="utf-8",

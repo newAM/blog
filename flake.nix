@@ -1,10 +1,16 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    treefmt.url = "github:numtide/treefmt-nix";
+    treefmt.inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   outputs =
     {
       self,
       nixpkgs,
+      treefmt,
     }:
     let
       forEachSystem = nixpkgs.lib.genAttrs [
@@ -12,6 +18,16 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
+
+      treefmtSettings = {
+        projectRootFile = "flake.nix";
+
+        programs = {
+          nixfmt.enable = true;
+          prettier.enable = true;
+          ruff-format.enable = true;
+        };
+      };
     in
     {
       packages = forEachSystem (
@@ -76,24 +92,28 @@
         }
       );
 
+      formatter = forEachSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          treefmtEval = treefmt.lib.evalModule pkgs treefmtSettings;
+        in
+        treefmtEval.config.build.wrapper
+      );
+
       checks = forEachSystem (
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
           site = self.packages.${system}.default;
+          treefmtEval = treefmt.lib.evalModule pkgs (treefmtSettings // {
+            programs.ruff-check.enable = true;
+          });
         in
         {
           inherit site;
 
-          markdown_format = pkgs.runCommand "prettier" { } ''
-            ${pkgs.nodePackages.prettier}/bin/prettier --check ${self}/content ${self}/README.md
-            touch $out
-          '';
-
-          nix_format = pkgs.runCommand "nixfmt" { } ''
-            ${pkgs.nixfmt-rfc-style}/bin/nixfmt --check ${self}/flake.nix
-            touch $out
-          '';
+          formatting = treefmtEval.config.build.check self;
 
           vale =
             let

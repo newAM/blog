@@ -1,4 +1,8 @@
+<!-- vale Google.Headings = NO -->
+
 # ThingLab Blog
+
+<!-- vale Google.Headings = YES -->
 
 I make things.
 

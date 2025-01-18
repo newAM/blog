@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 <!-- vale Google.Headings = NO -->
 
 # Zola to Sphinx

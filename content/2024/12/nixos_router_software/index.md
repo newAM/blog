@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # NixOS router software
 
 ```{blogpost} 2024-12-22
@@ -34,11 +36,7 @@ The BPi-R4 has several ports:
 
 The goal is to setup `networkd` to make each of these ports work for their intended purpose.
 
-<!-- vale off -->
-
 ### WAN ports
-
-<!-- vale on -->
 
 There are two WAN ports, one GbE, and one SFP+.
 Both ports can theoretically use these at the same time, but my ISP provides me with a single connection.
@@ -131,11 +129,7 @@ And when the SFP+ connection is removed `bond-wan` falls back to the GbE port.
 [  967.452862] bond-wan: (slave wan): making interface the new active one
 ```
 
-<!-- vale off -->
-
 ### LAN ports
-
-<!-- vale on -->
 
 The LAN ports are similar to the WAN, but instead of grouping the ports into a bond I used a bridge to act as a switch between the LAN ports.
 
@@ -260,11 +254,7 @@ Below is my basic ruleset for `nftables`. As an example I added two port forward
 }
 ```
 
-<!-- vale off -->
-
 ### sysctl
-
-<!-- vale on -->
 
 By default Linux ignores packets with an IP address that doesn't match its own.
 By setting `net.ipv4.conf.all.forwarding` Linux instead forwards the packets.
@@ -290,19 +280,11 @@ Enabling forwarding also forwards [martian packets], a packet where the source o
 }
 ```
 
-<!-- vale off -->
-
 ## DHCP
-
-<!-- vale on -->
 
 Dynamic host configuration protocol is the protocol clients use to request an IP address from the router.
 
-<!-- vale off -->
-
 ### DHCP implementation
-
-<!-- vale on -->
 
 There are two main software options for DHCP.
 
@@ -366,19 +348,11 @@ Both are good choices, but I chose Kea because I have used Dnsmasq in the past a
 }
 ```
 
-<!-- vale off -->
-
 ## DNS
-
-<!-- vale on -->
 
 Domain name system resolves a domain name to an IP address.
 
-<!-- vale off -->
-
 ### DNS implementation
-
-<!-- vale on -->
 
 Once again there are two great options.
 

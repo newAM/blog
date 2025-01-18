@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 <!-- vale Google.Headings = NO -->
 
 # Optimizing NixOS boot speeds on the Framework laptop

@@ -1,5 +1,7 @@
 <!-- description = "My home server hardware, and the services I run." -->
 
+<!-- vale off -->
+
 # State of the home server 2024
 
 ```{blogpost} 2024-12-28

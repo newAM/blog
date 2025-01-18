@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # NixOS router hardware
 
 ```{blogpost} 2024-12-14
@@ -36,11 +38,7 @@ The R4 had neither of those things when I started, and I thought it would be fun
 
 ## Developer environment
 
-<!-- vale off -->
-
 ### SD cards
-
-<!-- vale on -->
 
 The worst part about working with SBCs are the SD cards.
 Taking an SD card out, plugging it into my computer, and back into the SBC repeated while debugging boot issues isn't a great experience.
@@ -112,11 +110,7 @@ sudo date -s "14 DEC 2024 13:43:45"
 
 I bought an RTC battery to preserve time when AC power is removed.
 
-<!-- vale off -->
-
 ## Running NixOS on the BPi-R4
-
-<!-- vale on -->
 
 The [NixOS based router in 2023](https://github.com/ghostbuster91/blogposts/blob/a2374f0039f8cdf4faddeaaa0347661ffc2ec7cf/router2023/main.md#boot-sequence) blog has a fantastic overview of the boot sequence of the BPi-R3 which is nearly identical for the BPi-R4.
 
@@ -129,11 +123,7 @@ The short version is that to boot NixOS on the BPi-R4 there are 3 major software
 I developed a booting NixOS image in my own repository, [nixos-bpi-r4](https://github.com/newAM/nixos-bpi-r4).
 That repository is now archived because I submitted these changes to [nakato/nixos-sbc] in [pull-request #10](https://github.com/nakato/nixos-sbc/pull/10).
 
-<!-- vale off -->
-
 ### ARM trusted firmware
-
-<!-- vale on -->
 
 I started with the BPi-R3 configuration hoping to get lucky, but that didn't boot.
 

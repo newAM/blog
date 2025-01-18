@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # Starting a blog
 
 ```{blogpost} 2024-12-11

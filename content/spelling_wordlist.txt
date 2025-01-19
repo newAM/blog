@@ -1,6 +1,7 @@
 ABlog
 archiver
 Asus
+autoconfiguration
 blocklist
 bootup
 bootups
@@ -17,6 +18,7 @@ deduplication
 Dnsmasq
 ebay
 Epyc
+facto
 favicon
 favourable
 Fi
@@ -31,6 +33,7 @@ Gmail
 Gogs
 Grafana
 heatmap
+hextets
 homelab
 HX
 imap
@@ -39,6 +42,7 @@ Immich
 initrd
 IoT
 iperf
+iproute
 IPv
 javascript
 Jellyfin
@@ -49,7 +53,9 @@ MiB
 minio
 MXroute
 natively
+ndisc
 netdev
+networkd
 nftables
 nginx
 NixOS
@@ -57,7 +63,9 @@ oauth
 OAuth
 preprocessing
 raidz
+reachability
 repairability
+routable
 ruleset
 Ryzen
 spacebar

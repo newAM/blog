@@ -13,7 +13,7 @@ Selecting hardware for a router and booting into NixOS.
 
 This project started when I bought a [Home Assistant Connect ZBT-1], and smart bulb to tinker with [Thread], a wireless mesh network protocol designed for consumer IoT devices.
 
-I learned thread devices use IPv6 for addressing. Up to this point I had only used IPv4 at home, with my only IPv6 experience being adding AAAA DNS records[^1] for public-facing web services. This felt like a logical point to learn more about IPv6 by deploying it on my home network.
+I learned Thread devices use IPv6 for addressing. Up to this point I had only used IPv4 at home, with my only IPv6 experience being adding AAAA DNS records[^1] for public-facing web services. This felt like a logical point to learn more about IPv6 by deploying it on my home network.
 
 Deploying IPv6 at home wasn't as straightforward as I anticipated, that's a story for another time. There was a lot of configuration required on my EdgeRouter 4. More configuration than I felt comfortable maintaining without version control. My EdgeRouter 4 runs Vyatta which comes with its own configuration versioning system, but I didn't want to invest time learning Vyatta because my next router may not be running Vyatta. I wanted something reasonably portable, and version controlled.
 

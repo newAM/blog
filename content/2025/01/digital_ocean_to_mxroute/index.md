@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 <!-- vale Google.Headings = NO -->
 
 # Migrating my email from DigitalOcean to MXRoute

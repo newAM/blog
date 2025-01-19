@@ -368,9 +368,6 @@ This is a simple unbound configuration that forwards DNS queries to [Cloudflare'
   # use unbound for local queries
   services.resolved.enable = false;
 
-  # allow unbound access to x509 wildcard certificate
-  users.users.unbound.extraGroups = ["acme"];
-
   # DNS server
   services.unbound = {
     enable = true;
@@ -381,8 +378,6 @@ This is a simple unbound configuration that forwards DNS queries to [Cloudflare'
         interface = [
           "172.16.0.1"
           "127.0.0.1"
-          "::1"
-          "fd00::1"
         ];
         access-control = [
           "0.0.0.0/0 refuse"
@@ -392,7 +387,6 @@ This is a simple unbound configuration that forwards DNS queries to [Cloudflare'
           "10.0.0.0/8 allow"
           "::0/0 refuse"
           "::1 allow"
-          "fd00::/64 allow"
         ];
         # collect more statistics with prometheus
         extended-statistics = true;
@@ -411,7 +405,7 @@ This is a simple unbound configuration that forwards DNS queries to [Cloudflare'
           name = ".";
           # forward queries with DNS over TLS
           forward-tls-upstream = true;
-          # do not fallback to recursive DNS
+          # don't fallback to recursive DNS
           forward-first = false;
           # forward to cloudflare's DNS
           forward-addr = [
@@ -508,7 +502,7 @@ in {
   # use nginx as a TLS termination proxy for prometheus exporters
   services.nginx = {
     enable = true;
-    # 443 will be used by unbound for DNS over HTTPs in the future
+    # 443 is used by unbound for DNS over HTTPs in the future
     defaultSSLListenPort = 4443;
     virtualHosts = let
       mkExporter = port: {
@@ -533,7 +527,7 @@ in {
     extraDomainNames = [fqdn];
   };
   # I use DNS-01 challenge to avoid opening port 80
-  # This configuration will be specific the DNS for your domain
+  # This configuration is specific to the DNS for your domain
   security.acme.defaults = { };
 }
 ```

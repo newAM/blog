@@ -5,7 +5,6 @@
   sphinx,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxext-rediraffe";
   version = "0.2.7";
@@ -34,15 +33,15 @@ buildPythonPackage rec {
   # tests require seleniumbase which is not currently in nixpkgs
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinxext.rediraffe" ];
+  pythonImportsCheck = ["sphinxext.rediraffe"];
 
-  pythonNamespaces = [ "sphinxext" ];
+  pythonNamespaces = ["sphinxext"];
 
   meta = {
     description = "Sphinx extension to redirect files";
     homepage = "https://github.com/wpilibsuite/sphinxext-rediraffe";
     changelog = "https://github.com/wpilibsuite/sphinxext-rediraffe/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.newam ];
+    maintainers = [lib.maintainers.newam];
   };
 }

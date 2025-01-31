@@ -21,7 +21,7 @@
       projectRootFile = "flake.nix";
 
       programs = {
-        nixfmt.enable = true;
+        alejandra.enable = true;
         prettier.enable = true;
         ruff-format.enable = true;
       };
@@ -97,16 +97,21 @@
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
         site = self.packages.${system}.default;
-        treefmtEval = treefmt.lib.evalModule pkgs (
-          treefmtSettings
-          // {
-            programs.ruff-check.enable = true;
-          }
-        );
       in {
         inherit site;
 
-        formatting = treefmtEval.config.build.check self;
+        formatting =
+          (
+            (treefmt.lib.evalModule pkgs (
+              nixpkgs.lib.recursiveUpdate treefmtSettings {
+                programs.ruff-check.enable = true;
+              }
+            ))
+            .config
+            .build
+            .check
+          )
+          self;
 
         vale = let
           valeStyles = pkgs.stdenvNoCC.mkDerivation {

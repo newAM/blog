@@ -11,6 +11,7 @@ Cloudflare
 cpp
 datasheet
 Datasheets
+ddclient
 DDoS
 deduplicating
 Deduplicating
@@ -61,6 +62,7 @@ nginx
 NixOS
 oauth
 OAuth
+perl
 preprocessing
 raidz
 reachability

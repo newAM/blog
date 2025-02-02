@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # NixOS router IPv6
 
 ```{blogpost} 2025-01-19
@@ -165,10 +167,10 @@ The DHCPv4 client doesn't require a similar port rule because the networkd DHCPv
       chain input {
         type filter hook input priority 0; policy drop;
 
-        iifname { "br-lan" } accept comment "Allow local network to access the router"
+        iifname "br-lan" accept comment "Allow local network to access the router"
         iifname "bond-wan" ct state { established, related } accept comment "Allow established traffic"
-        iifname "bond-wan" tcp dport 22 accept "Accept incoming SSH"
-        iifname "bond-wan" tcp dport 443 accept "Accept incoming HTTPS"
+        iifname "bond-wan" ip protocol tcp tcp dport 22 accept "Accept incoming SSH"
+        iifname "bond-wan" ip protocol tcp dport 443 accept "Accept incoming HTTPS"
 
         # Added for NDP and DHCPv6 client
         iifname "bond-wan" icmpv6 type { nd-router-advert, nd-neighbor-solicit, nd-neighbor-advert, nd-redirect } counter accept comment "Allow IPv6 neighbor discovery protocol"
@@ -181,9 +183,9 @@ The DHCPv4 client doesn't require a similar port rule because the networkd DHCPv
       chain forward {
         type filter hook forward priority filter; policy drop;
 
-        iifname { "br-lan" } oifname { "bond-wan" } accept comment "Allow LAN to WAN"
-        iifname { "bond-wan" } oifname { "br-lan" } ct state { established, related } accept comment "Allow established back to LANs"
-        iifname { "bond-wan" } oifname { "br-lan" } ct status dnat accept comment "Allow NAT from WAN"
+        iifname "br-lan" oifname "bond-wan" accept comment "Allow LAN to WAN"
+        iifname "bond-wan" oifname "br-lan" ct state { established, related } accept comment "Allow established back to LAN"
+        iifname "bond-wan" oifname "br-lan" ct status dnat accept comment "Allow NAT from WAN"
 
         counter comment "Dropped packets"
       }
@@ -193,8 +195,8 @@ The DHCPv4 client doesn't require a similar port rule because the networkd DHCPv
       chain prerouting {
         type nat hook prerouting priority -100;
 
-        iifname "bond-wan" tcp dport 22 redirect to :22 "Redirect SSH from WAN to router"
-        iifname "bond-wan" tcp dport 443 dnat to 172.16.0.2:443 "NAT HTTPs traffic from WAN to web server"
+        iifname "bond-wan" ip protocol tcp tcp dport 22 redirect to :22 "Redirect SSH from WAN to router"
+        iifname "bond-wan" ip protocol tcp tcp dport 443 dnat to 172.16.0.2:443 "NAT HTTPs traffic from WAN to web server"
       }
       chain postrouting {
         type nat hook postrouting priority 100; policy accept;

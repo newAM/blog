@@ -1,6 +1,6 @@
 <!-- vale off -->
 
-# Self-hosting with IPv6 on a home networking
+# Self-hosting with IPv6 on a home network
 
 ```{blogpost} 2025-02-02
 :category: Router

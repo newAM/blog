@@ -60,6 +60,7 @@ networkd
 nftables
 nginx
 NixOS
+nixpkgs
 oauth
 OAuth
 perl
@@ -98,4 +99,5 @@ webserver
 Wh
 Wi
 wireguard
+wordlist
 µs

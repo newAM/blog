@@ -166,10 +166,11 @@ def post_bullet_list_item(
 ) -> nodes.list_item:
     ref = nodes.reference()
     ref["refuri"] = app.builder.get_relative_uri(from_=docname, to=post_docname)
-    date_pretty: str = post_data["date"].strftime("%Y-%m-%d")
-    ref.append(nodes.Text(date_pretty + " " + post_data["title"]))
+    ref.append(nodes.Text(post_data["title"]))
 
     paragraph = nodes.paragraph()
+    date_pretty: str = post_data["date"].strftime("%Y-%m-%d")
+    paragraph.append(nodes.Text(date_pretty + " "))
     paragraph.append(ref)
 
     post = nodes.list_item()

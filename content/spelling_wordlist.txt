@@ -2,6 +2,7 @@ ABlog
 archiver
 Asus
 autoconfiguration
+behaviour
 blocklist
 bootup
 bootups
@@ -13,6 +14,7 @@ datasheet
 Datasheets
 ddclient
 DDoS
+declaratively
 deduplicating
 Deduplicating
 deduplication
@@ -47,10 +49,13 @@ iproute
 IPv
 javascript
 Jellyfin
+kanidm
+Kanidm
 Keycloak
 MacBook
 metasearch
 MiB
+Miniflux
 minio
 MXroute
 natively
@@ -59,6 +64,8 @@ netdev
 networkd
 nftables
 nginx
+nixfiles
+nixos
 NixOS
 nixpkgs
 oauth
@@ -92,6 +99,7 @@ unbuffered
 unencrypted
 uptime
 usecases
+userinfo
 userspace
 Vyatta
 webdav

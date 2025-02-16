@@ -267,7 +267,7 @@ def create_feed(app: Sphinx):
     feed.title("ThingLab Blog")
     feed.author({"name": "Alex Martens"})
     feed.subtitle(
-        "Alex Martens' personal blog. A mix of software, firmware, and hardware projects."
+        "Alex Martens' blog. A mix of software, firmware, and hardware projects."
     )
     feed.copyright(app.builder.env.config.copyright)
     feed.language("en")

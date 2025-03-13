@@ -33,7 +33,6 @@
 
         python3 = pkgs.python3.override {
           packageOverrides = pyfinal: pyprev: {
-            sphinx-favicon = pkgs.python3.pkgs.callPackage ./sphinx-favicon.nix {};
             sphinxext-rediraffe = pkgs.python3.pkgs.callPackage ./sphinxext-rediraffe.nix {};
           };
         };

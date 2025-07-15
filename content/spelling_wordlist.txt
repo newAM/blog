@@ -19,6 +19,7 @@ deduplicating
 Deduplicating
 deduplication
 Dnsmasq
+DoT
 ebay
 Epyc
 facto
@@ -58,6 +59,8 @@ MiB
 Miniflux
 minio
 MXroute
+nameserver
+nameservers
 natively
 ndisc
 netdev
@@ -74,6 +77,7 @@ perl
 preprocessing
 raidz
 reachability
+recursing
 repairability
 routable
 ruleset

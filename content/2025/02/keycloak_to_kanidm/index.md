@@ -7,9 +7,9 @@
 :tags: NixOS, Security
 ```
 
-One year ago I deployed Keycloak for single sign-on across all my applications.
+One year ago I deployed Keycloak for single sign-on across all my self-hosted applications.
 
-At first Keycloak was great, I enjoyed signing in once and having access to almost all my self-hosted applications.
+At first Keycloak was great, I enjoyed signing in once and having access to almost all my applications.
 After the honeymoon phase with SSO was over I developed some gripes with Keycloak.
 
 - Persistent user sessions aren't enabled by default
@@ -174,8 +174,8 @@ Taking inspiration from Grafana I made the path to roles/groups parametric, sear
 [Open WebUI] recognized a duplicate account, to fix this I:
 
 1. Enabled `OAUTH_MERGE_ACCOUNTS_BY_EMAIL`
-2. Switch to Kanidm
-3. Disable `OAUTH_MERGE_ACCOUNTS_BY_EMAIL`
+2. Switched to Kanidm
+3. Disabled `OAUTH_MERGE_ACCOUNTS_BY_EMAIL`
 
 [Open WebUI]: https://openwebui.com/
 

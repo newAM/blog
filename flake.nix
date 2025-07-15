@@ -30,12 +30,6 @@
     packages = forEachSystem (
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
-
-        python3 = pkgs.python3.override {
-          packageOverrides = pyfinal: pyprev: {
-            sphinxext-rediraffe = pkgs.python3.pkgs.callPackage ./sphinxext-rediraffe.nix {};
-          };
-        };
       in {
         default = pkgs.stdenvNoCC.mkDerivation {
           name = "thinglab.org";
@@ -44,16 +38,16 @@
 
           nativeBuildInputs = [
             pkgs.svgbob
-            python3.pkgs.dateutils
-            python3.pkgs.feedgen
-            python3.pkgs.furo
-            python3.pkgs.myst-parser
-            python3.pkgs.sphinx
-            python3.pkgs.sphinx-copybutton
-            python3.pkgs.sphinx-favicon
-            python3.pkgs.sphinx-sitemap
-            python3.pkgs.sphinxcontrib-spelling
-            python3.pkgs.sphinxext-rediraffe
+            pkgs.python3.pkgs.dateutils
+            pkgs.python3.pkgs.feedgen
+            pkgs.python3.pkgs.furo
+            pkgs.python3.pkgs.myst-parser
+            pkgs.python3.pkgs.sphinx
+            pkgs.python3.pkgs.sphinx-copybutton
+            pkgs.python3.pkgs.sphinx-favicon
+            pkgs.python3.pkgs.sphinx-sitemap
+            pkgs.python3.pkgs.sphinxcontrib-spelling
+            pkgs.python3.pkgs.sphinxext-rediraffe
           ];
 
           env.NIX_LAST_MODIFIED_DATE = self.lastModifiedDate;

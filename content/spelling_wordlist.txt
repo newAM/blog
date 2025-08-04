@@ -63,6 +63,7 @@ nameserver
 nameservers
 natively
 ndisc
+nemo
 netdev
 networkd
 nftables
@@ -97,6 +98,7 @@ theming
 thinglab
 Threadripper
 Threadrippers
+thumbnailers
 TiB
 udev
 unbuffered

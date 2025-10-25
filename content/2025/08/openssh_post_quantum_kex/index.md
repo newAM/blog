@@ -112,7 +112,7 @@ The `+` prefix appends these key exchange algorithms to the default list of
 post-quantum algorithms instead of replacing them.
 
 ```{code-block} text
-:caption: Line added to `/etc/ssh/ssh_config`
+:caption: Lines added to `/etc/ssh/ssh_config`
 
 Host github.com
     KexAlgorithms +curve25519-sha256,curve25519-sha256@libssh.org

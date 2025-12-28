@@ -1,4 +1,5 @@
 ABlog
+Alibaba
 archiver
 Asus
 autoconfiguration
@@ -39,6 +40,7 @@ Grafana
 heatmap
 hextets
 homelab
+https
 HX
 imap
 imapsync
@@ -72,9 +74,15 @@ nixfiles
 nixos
 NixOS
 nixpkgs
+ntpd
+Nvidia
 oauth
 OAuth
+Opengist
+Openntpd
+pastebin
 perl
+plaintext
 preprocessing
 raidz
 reachability
@@ -100,9 +108,11 @@ Threadripper
 Threadrippers
 thumbnailers
 TiB
+TP
 udev
 unbuffered
 unencrypted
+untrusted
 uptime
 usecases
 userinfo

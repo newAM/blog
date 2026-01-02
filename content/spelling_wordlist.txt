@@ -42,6 +42,7 @@ hextets
 homelab
 https
 HX
+Hyprland
 imap
 imapsync
 Immich

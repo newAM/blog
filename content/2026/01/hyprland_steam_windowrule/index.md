@@ -4,7 +4,7 @@
 
 ```{blogpost} 2026-01-01
 :category: Hyprland
-:tags: NixOS, Hyprland
+:tags: Hyprland
 ```
 
 Steam doesn't play nice with tiling window managers, especially Hyprland.

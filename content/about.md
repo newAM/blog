@@ -15,7 +15,7 @@ and future.
 
 All content is [CC BY 4.0] unless otherwise noted.
 
-All source code is [MIT] unless otherwise noted.
+All code is [MIT] unless otherwise noted.
 
 [CC BY 4.0]: https://creativecommons.org/licenses/by/4.0
 [MIT]: https://opensource.org/license/mit

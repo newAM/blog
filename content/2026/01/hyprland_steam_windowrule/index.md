@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # A window rule to make Steam play nice with Hyprland
 
 ```{blogpost} 2026-01-01

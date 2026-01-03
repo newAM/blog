@@ -35,7 +35,6 @@ language = "en"
 
 extensions = [
     "myst_parser",
-    "sphinx.ext.autosectionlabel",
     "sphinx.ext.intersphinx",
     "sphinx_blog",
     "sphinx_copybutton",
@@ -48,7 +47,8 @@ extensions = [
 
 nitpicky = True
 
-autosectionlabel_prefix_document = True
+# https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#implicit-targets
+myst_heading_anchors = 3
 
 ###############################################################################
 # HTML style

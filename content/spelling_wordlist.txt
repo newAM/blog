@@ -9,6 +9,11 @@ bootup
 bootups
 BPi
 Buildable
+checksum
+checksumming
+checksums
+ciphertext
+ciphertexts
 Cloudflare
 cpp
 datasheet
@@ -56,6 +61,8 @@ Jellyfin
 kanidm
 Kanidm
 Keycloak
+KiB
+loopback
 MacBook
 metasearch
 MiB
@@ -84,10 +91,12 @@ Openntpd
 pastebin
 perl
 plaintext
+plaintexts
 preprocessing
 raidz
 reachability
 recursing
+recv
 repairability
 routable
 ruleset
@@ -125,4 +134,5 @@ Wh
 Wi
 wireguard
 wordlist
+Zettabyte
 µs

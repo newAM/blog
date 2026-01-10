@@ -50,7 +50,7 @@ Not everything about the PiKVM is perfect, and I do have some minor complaints.
 
 - The display isn't large enough to fit an entire IPv6 address.
 - `pikvm-update` resulted in a non-functional KVM once. This issue got fixed in a day by the PiKVM manufacturer.
-- On my first PiKVM the included power supply had considerable coil whine. I replaced the power supply with another USB-C Raspberry Pi power supply. My second PiKVM power supply didn't have this problem.
+- The power supply included with my first PiKVM had considerable coil whine. I replaced the power supply with another USB-C Raspberry Pi power supply. My second PiKVM power supply didn't have this problem.
 - The API requires storage of the 2FA TOTP private key.
 - The OLED screen on my first PiKVM suffers from burn-in and is noticeably dimmer compared to my second PiKVM. I suspect the display may be unusable in a couple of years if the degradation continues.
 

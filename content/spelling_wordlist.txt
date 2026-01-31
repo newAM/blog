@@ -9,6 +9,7 @@ bootup
 bootups
 BPi
 Buildable
+certbot
 checksum
 checksumming
 checksums
@@ -29,6 +30,7 @@ DoT
 ebay
 Epyc
 facto
+fanless
 favicon
 favourable
 Fi
@@ -42,6 +44,8 @@ Gitea
 Gmail
 Gogs
 Grafana
+Hackability
+hackability
 heatmap
 hextets
 homelab
@@ -66,6 +70,7 @@ loopback
 MacBook
 metasearch
 MiB
+Mikrotik
 Miniflux
 minio
 MXroute
@@ -94,6 +99,7 @@ plaintext
 plaintexts
 preprocessing
 raidz
+Raritan
 reachability
 recursing
 recv
@@ -136,7 +142,4 @@ wireguard
 wordlist
 Zettabyte
 µs
-Hackability
-hackability
-Raritan
-certbot
+fanless

@@ -9,6 +9,7 @@ bootup
 bootups
 BPi
 Buildable
+cec
 certbot
 checksum
 checksumming
@@ -25,11 +26,13 @@ declaratively
 deduplicating
 Deduplicating
 deduplication
+dev
 Dnsmasq
 DoT
 ebay
 Epyc
 facto
+fanless
 fanless
 favicon
 favourable
@@ -41,6 +44,7 @@ Gbits
 Gbps
 GiB
 Gitea
+gkoh
 Gmail
 Gogs
 Grafana
@@ -51,6 +55,7 @@ hextets
 homelab
 https
 HX
+hypridle
 Hyprland
 imap
 imapsync
@@ -65,11 +70,14 @@ Jellyfin
 kanidm
 Kanidm
 Keycloak
+keypresses
 KiB
 loopback
 MacBook
 metasearch
 MiB
+microcontroller
+microcontrollers
 Mikrotik
 Miniflux
 minio
@@ -95,6 +103,7 @@ Opengist
 Openntpd
 pastebin
 perl
+pico
 plaintext
 plaintexts
 preprocessing
@@ -125,6 +134,7 @@ Threadrippers
 thumbnailers
 TiB
 TP
+trackpad
 udev
 unbuffered
 unencrypted
@@ -142,4 +152,3 @@ wireguard
 wordlist
 Zettabyte
 µs
-fanless

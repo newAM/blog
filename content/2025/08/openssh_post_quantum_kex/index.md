@@ -3,8 +3,8 @@
 # Forcing OpenSSH to use post-quantum key exchange
 
 ```{blogpost} 2025-08-16
-:category: NixOS
-:tags: NixOS, Linux
+:category: Cryptography
+:tags: NixOS, Linux, Cryptography
 ```
 
 OpenSSH [recently added a warning](https://www.openssh.com/pq.html) when a

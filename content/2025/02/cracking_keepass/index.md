@@ -4,7 +4,7 @@
 
 ```{blogpost} 2025-02-09
 :category: Security
-:tags: Security
+:tags: Security, Cryptography
 ```
 
 I use [KeePassXC] as my password manager.

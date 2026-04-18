@@ -3,6 +3,7 @@ Alibaba
 archiver
 Asus
 autoconfiguration
+backend
 behaviour
 blocklist
 bootup
@@ -17,6 +18,7 @@ checksums
 ciphertext
 ciphertexts
 Cloudflare
+Conscrypt
 cpp
 datasheet
 Datasheets
@@ -38,6 +40,7 @@ favicon
 favourable
 Fi
 filesystem
+Filippo
 Forgejo
 GbE
 Gbits
@@ -113,9 +116,12 @@ reachability
 recursing
 recv
 repairability
+roadmap
 routable
 ruleset
 Ryzen
+Secp
+secp
 spacebar
 submodules
 subtrees
@@ -133,6 +139,7 @@ Threadripper
 Threadrippers
 thumbnailers
 TiB
+TLS
 TP
 trackpad
 udev
@@ -143,6 +150,7 @@ uptime
 usecases
 userinfo
 userspace
+Valsorda
 Vyatta
 webdav
 webserver

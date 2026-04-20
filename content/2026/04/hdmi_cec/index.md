@@ -5,6 +5,7 @@
 ```{blogpost} 2026-04-12
 :category: Home Automation
 :tags: Home Automation
+:updated: 2026-04-19
 ```
 
 My TV has a two-step power-on sequence:
@@ -160,7 +161,67 @@ listener {
 Now my TV turns on with any keyboard input and turns off after 5 minutes of idle time, the single-step experience I wanted from the start.
 The whole setup cost $15 and fits neatly behind the TV, a long way from my gaffer-taped STM32H7 dev board.
 
+## Update 2026-04-19
+
+After updating to the pico-cec [v0.7.0 release] I needed to update the Python script.
+
+As gkoh pointed out in [pico-cec/pull/76], the broadcast address I used for turning the TV on is not spec-compliant, and didn't work with all TVs. I updated the Python script to include addresses in the send command.
+
+```{code-block} python
+:caption: `cec_power.py` script updated to include addresses in the send command
+
+#!/usr/bin/env python3
+
+import argparse
+import re
+import serial
+import sys
+
+NOISE = {"Disconnected", "Connected"}
+
+
+def strip_ansi(s):
+    return re.sub(r"\x1b\[[0-9;]*[a-zA-Z]", "", s)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="HDMI CEC power control")
+    parser.add_argument("state", choices=["on", "off"], help="Power state")
+    args = parser.parse_args()
+
+    standby_code: int = 0x36
+    image_view_on_code: int = 0x4
+
+    tv_logical_addr: int = 0x0
+    broadcast_addr: int = 0xF
+
+    command = (
+        f"send {tv_logical_addr:x} {image_view_on_code:x}"
+        if args.state == "on"
+        else f"send {broadcast_addr:x} {standby_code:x}"
+    )
+
+    with serial.Serial(
+        "/dev/serial/by-id/usb-TinyUSB_TinyUSB_Device_123456-if01", 115200, timeout=5
+    ) as ser:
+        ser.write((command + "\r\n").encode())
+        raw = strip_ansi(ser.read_until(b">").decode())
+        output = raw.split(">", 1)[0].replace(command, "", 1)
+        output = "\n".join(
+            line for line in output.splitlines() if line.strip() not in NOISE
+        ).strip()
+        if output:
+            print(output)
+            sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+[v0.7.0 release]: https://github.com/gkoh/pico-cec/releases/tag/v0.7.0
 [gkoh/pico-cec]: https://github.com/gkoh/pico-cec
+[gkoh/pico-cec/pull/76]: https://github.com/gkoh/pico-cec/pull/76
 [gkoh/pico-cec/pull/73]: https://github.com/gkoh/pico-cec/pull/73
 [bill of materials]: https://github.com/gkoh/pico-cec/blob/77f86e5aca7c9c7e1958db0fea8a021e246e4241/README.md#bill-of-materials
 [Kodi]: https://kodi.tv

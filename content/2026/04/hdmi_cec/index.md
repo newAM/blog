@@ -165,7 +165,7 @@ The whole setup cost $15 and fits neatly behind the TV, a long way from my gaffe
 
 After updating to the pico-cec [v0.7.0 release] I needed to update the Python script.
 
-As gkoh pointed out in [pico-cec/pull/76], the broadcast address I used for turning the TV on is not spec-compliant, and didn't work with all TVs. I updated the Python script to include addresses in the send command.
+As gkoh pointed out in [gkoh/pico-cec/pull/76], the broadcast address I used for turning the TV on is not spec-compliant, and didn't work with all TVs. I updated the Python script to include addresses in the send command.
 
 ```{code-block} python
 :caption: `cec_power.py` script updated to include addresses in the send command
